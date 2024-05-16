@@ -43,9 +43,9 @@ const datetime = ref<Date | null>(null);
             </template>
             <template #content>
                 <div class="flex flex-col gap-4">
-                    <InputNumber inputClass="w-full" v-model="mileage" label="Mileage" placeholder="Mileage" inputId="horizontal-buttons"
-                        type="float" showButtons buttonLayout="horizontal" :step="0.1" suffix=" km"
-                        :minFractionDigits="1" :maxFractionDigits="1">
+                    <InputNumber inputClass="w-full" v-model="mileage" label="Mileage" placeholder="Mileage"
+                        inputId="horizontal-buttons" type="float" showButtons buttonLayout="horizontal" :step="0.1"
+                        suffix=" km" :minFractionDigits="1" :maxFractionDigits="1">
                         <template #incrementbuttonicon>
                             <span class="pi pi-plus"></span>
                         </template>
@@ -58,7 +58,8 @@ const datetime = ref<Date | null>(null);
                         v-if="msg" @close="msg = null">{{ msg
                         }}
                     </Message>
-                    <div class="flex justify-end">
+                    <div class="flex justify-between items-center">
+                        <Button label="Logout" @click="accountStore.account = null; $router.push('/')" severity="secondary"></Button>
                         <Button type="submit" label="Upload" @click="upload"></Button>
                     </div>
                 </div>

@@ -38,7 +38,7 @@ const password = ref('');
             </template>
             <template #content>
                 <form @submit.prevent="login" class="flex flex-col gap-4">
-                    <InputText v-model="username" label="Username" placeholder="mileage" />
+                    <InputText v-model="username" label="Username" placeholder="Enter your username" />
                     <Password class="w-full" input-class="w-full" v-model="password" label="Password" type="password"
                         placeholder="Enter your password" toggleMask />
                     <div class="flex justify-end">
