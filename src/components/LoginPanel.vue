@@ -12,6 +12,10 @@ const toast = useToast();
 const accountStore = useAccountStore();
 
 async function login() {
+    if (!username.value || !password.value) {
+        toast.add({ severity: 'error', summary: 'Invalid Input', detail: 'Please enter both username and password', life: 3000 });
+        return;
+    }
     const result: { status: boolean; msg: string, account: Account } = await invoke("login", {
         username: username.value,
         password: password.value
