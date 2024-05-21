@@ -18,13 +18,7 @@ async fn login(username: &str, password: &str) -> Result<Value, ()> {
 }
 
 #[tauri::command]
-async fn upload(mut account: Account, mileage: f64, time: String) -> Result<Value, ()> {
-    if let Err(e) = account.login().await {
-        return Ok(json!({"status": false, "msg": e.to_string()}));
-    };
-    if let Err(e) = account.get_state().await {
-        return Ok(json!({"status": false, "msg": e.to_string()}));
-    };
+async fn upload(account: Account, mileage: f64, time: String) -> Result<Value, ()> {
     if let Err(e) = account
         .upload_running(
             mileage,
