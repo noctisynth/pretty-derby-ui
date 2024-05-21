@@ -46,6 +46,7 @@ async fn upload(mut account: Account, mileage: f64, time: String) -> Result<Valu
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_process::init())
         .plugin(tauri_plugin_shell::init())
         .invoke_handler(tauri::generate_handler![login, upload])
         .run(tauri::generate_context!())
