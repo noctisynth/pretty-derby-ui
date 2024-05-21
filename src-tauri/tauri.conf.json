@@ -1,5 +1,5 @@
 {
-  "productName": "pretty-derby-ui",
+  "productName": "Pretty Derby",
   "version": "0.1.3",
   "identifier": "org.noctisynth.pretty-derby",
   "build": {
@@ -8,7 +8,8 @@
     "beforeBuildCommand": "pnpm build",
     "frontendDist": "../dist"
   },
-  "app": {"windows": [
+  "app": {
+    "windows": [
       {
         "title": "pretty-derby-ui",
         "width": 800,
