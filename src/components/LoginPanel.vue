@@ -5,8 +5,9 @@ import { invoke } from '@tauri-apps/api/core';
 import { useAccountStore } from '../stores/account';
 import IconField from 'primevue/iconfield';
 import InputIcon from 'primevue/inputicon';
-import router from '../routers';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const toast = useToast();
 const accountStore = useAccountStore();
 
@@ -41,7 +42,8 @@ const password = ref('');
                 <form @submit.prevent="login" class="flex flex-col gap-4">
                     <IconField iconPosition="right">
                         <InputIcon class="pi pi-user"> </InputIcon>
-                        <InputText class="w-full" v-model="username" label="Username" placeholder="Enter your username" />
+                        <InputText class="w-full" v-model="username" label="Username"
+                            placeholder="Enter your username" />
                     </IconField>
                     <Password class="w-full" input-class="w-full" v-model="password" label="Password" type="password"
                         placeholder="Enter your password" toggleMask />
