@@ -16,7 +16,6 @@ async function login() {
     if (result.status) {
         toast.add({ severity: 'success', summary: 'Login Success', detail: result.msg, life: 3000 });
         accountStore.setAccount(result.account);
-        await new Promise(resolve => setTimeout(resolve, 3000));
         router.push('/dashboard');
     } else {
         toast.add({ severity: 'error', summary: 'Login Failed', detail: result.msg, life: 3000 });
