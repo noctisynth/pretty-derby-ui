@@ -11,6 +11,9 @@ const msg = ref<string | null>(null);
 const status = ref<boolean | null>(null);
 const account = accountStore.account;
 
+// Generate random number between min and max
+const random = (min: any, max: any) => Math.floor(Math.random() * (max - min + 1) + min)
+
 async function upload() {
     status.value = null;
     if (!mileage.value || !datetime.value) {
@@ -18,6 +21,7 @@ async function upload() {
         msg.value = 'Please fill in all fields';
         return;
     }
+    datetime.value.setSeconds(random(0, 59))
     const result: { status: boolean; msg: string } = await invoke("upload", {
         account: accountStore.account,
         mileage: mileage.value,
@@ -53,13 +57,14 @@ const datetime = ref<Date | null>(null);
                             <span class="pi pi-minus"></span>
                         </template>
                     </InputNumber>
-                    <Calendar placeholder="Select Date" v-model="datetime" showTime hourFormat="24" />
+                    <Calendar placeholder="Select Date" v-model="datetime" showTime hourFormat="24" showIcon />
                     <Message class="w-full" :severity="status === null ? 'info' : status === true ? 'success' : 'error'"
                         v-if="msg" @close="msg = null">{{ msg
                         }}
                     </Message>
                     <div class="flex justify-between items-center">
-                        <Button label="Logout" @click="accountStore.account = null; $router.push('/')" severity="secondary"></Button>
+                        <Button label="Logout" @click="accountStore.account = null; $router.push('/')"
+                            severity="secondary"></Button>
                         <Button type="submit" label="Upload" @click="upload"></Button>
                     </div>
                 </div>
