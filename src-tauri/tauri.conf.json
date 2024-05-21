@@ -1,6 +1,6 @@
 {
   "productName": "pretty-derby-ui",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "identifier": "org.noctisynth.pretty-derby",
   "build": {
     "beforeDevCommand": "pnpm dev",
