@@ -9,12 +9,14 @@ const router = useRouter();
 const accountStore = useAccountStore();
 
 const msg = ref<string>('Please wait while we acquire your session...');
-const visible = ref(false);
+const visible = ref(!accountStore.disclaimed);
 
 async function check() {
     visible.value = false;
     if (accountStore.isLoggedIn()) {
-        const res = await accountStore.acquire()
+        const res = await accountStore.acquire().catch(e => {
+            return { status: false, msg: e.message };
+        });
         if (res.status)
             router.push('/dashboard');
         else {
@@ -38,7 +40,7 @@ onMounted(async () => {
 <template>
     <div class="w-full h-full">
         <div class="flex flex-col gap-3rem justify-center items-center h-screen">
-            <Disclaimer :v-model:visible="visible" @agreed="check"></Disclaimer>
+            <Disclaimer v-model:visible="visible" @agreed="check"></Disclaimer>
             <ProgressSpinner />
             <span class="font-bold">{{ msg }}</span>
         </div>

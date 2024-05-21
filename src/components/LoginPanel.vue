@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useToast } from 'primevue/usetoast';
-import { invoke } from '@tauri-apps/api/core';
 import { useAccountStore } from '../stores/account';
 import IconField from 'primevue/iconfield';
 import InputIcon from 'primevue/inputicon';
 import { useRouter } from 'vue-router';
+import { onMounted } from 'vue';
 
 const router = useRouter();
 const toast = useToast();
@@ -16,13 +16,11 @@ async function login() {
         toast.add({ severity: 'error', summary: 'Invalid Input', detail: 'Please enter both username and password', life: 3000 });
         return;
     }
-    const result: { status: boolean; msg: string, account: Account } = await invoke("login", {
-        username: username.value,
-        password: password.value
-    })
+    const result = await accountStore.login(username.value, password.value).catch(e => {
+        return { status: false, msg: e.message };
+    });
     if (result.status) {
         toast.add({ severity: 'success', summary: 'Login Success', detail: result.msg, life: 3000 });
-        accountStore.setAccount(result.account);
         router.push('/dashboard');
     } else {
         toast.add({ severity: 'error', summary: 'Login Failed', detail: result.msg, life: 3000 });
@@ -31,6 +29,11 @@ async function login() {
 
 const username = ref('');
 const password = ref('');
+
+onMounted(() => {
+    if (accountStore.isLoggedIn())
+        router.push('/dashboard');
+});
 </script>
 
 <template>

@@ -39,7 +39,7 @@ Copyright © 2011-PRESENT [Noctisynth, org](https://github.com/noctisynth). All 
 
 const html = ref<string | null>();
 
-const visible = ref<boolean>(model.value || true);
+const visible = ref<boolean>(model.value !== undefined ? model.value : true);
 
 const accountStore = useAccountStore();
 
