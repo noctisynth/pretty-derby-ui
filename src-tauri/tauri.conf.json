@@ -11,7 +11,7 @@
   "app": {
     "windows": [
       {
-        "title": "pretty-derby-ui",
+        "title": "Pretty Derby",
         "width": 800,
         "height": 600
       }

@@ -1,0 +1,7 @@
+{
+  "identifier": "default",
+  "description": "Default tauri capability config",
+  "local": true,
+  "windows": ["main"],
+  "permissions": ["process:allow-exit"]
+}
