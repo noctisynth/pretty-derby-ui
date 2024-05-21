@@ -17,7 +17,6 @@ const routes: RouteRecordRaw[] = Object.entries(views).map(
     path = path.replace(/\[(\w+)\]\.vue$/, ":$1");
     path = path.replace(/\.vue$/, "")
     path = "/" + path;
-    console.log(filePath, path);
 
     return {
       path,
