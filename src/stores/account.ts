@@ -6,6 +6,7 @@ export const useAccountStore = defineStore(
   "account",
   () => {
     const account = ref<Account | null>(null);
+    const disclaimed = ref(false);
     const setAccount = (newAccount: Account) => {
       account.value = newAccount;
     };
@@ -40,6 +41,7 @@ export const useAccountStore = defineStore(
     };
     return {
       account,
+      disclaimed,
       setAccount,
       isLoggedIn,
       login,
