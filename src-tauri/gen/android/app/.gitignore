@@ -1,5 +1,6 @@
-/src/main/java/org/noctisynth/pretty_derby_ui/generated
+/src/main/java/org/noctisynth/pretty_derby/generated
 /src/main/jniLibs/**/*.so
 /src/main/assets/tauri.conf.json
 /tauri.build.gradle.kts
 /proguard-tauri.pro
+/tauri.properties

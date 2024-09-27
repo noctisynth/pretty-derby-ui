@@ -7,28 +7,27 @@ plugins {
     id("rust")
 }
 
+val tauriProperties = Properties().apply {
+    val propFile = file("tauri.properties")
+    if (propFile.exists()) {
+        propFile.inputStream().use { load(it) }
+    }
+}
+
 val keyPropertiesFile = rootProject.file("key.properties")
 val keyProperties = Properties()
 keyProperties.load(FileInputStream(keyPropertiesFile))
 
 android {
-    compileSdk = 33
-    namespace = "org.noctisynth.pretty_derby_ui"
+    compileSdk = 34
+    namespace = "org.noctisynth.pretty_derby"
     defaultConfig {
         manifestPlaceholders["usesCleartextTraffic"] = "false"
-        applicationId = "org.noctisynth.pretty_derby_ui"
+        applicationId = "org.noctisynth.pretty_derby"
         minSdk = 24
-        targetSdk = 33
-        versionCode = 1
-        versionName = "0.1.7"
-    }
-    signingConfigs {
-        create("release") {
-            keyAlias = keyProperties["keyAlias"] as String
-            keyPassword = keyProperties["keyPassword"] as String
-            storeFile = file(keyProperties["storeFile"] as String)
-            storePassword = keyProperties["storePassword"] as String
-        }
+        targetSdk = 34
+        versionCode = tauriProperties.getProperty("tauri.android.versionCode", "1").toInt()
+        versionName = tauriProperties.getProperty("tauri.android.versionName", "1.0")
     }
     buildTypes {
         getByName("debug") {
@@ -54,6 +53,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+    buildFeatures {
+        buildConfig = true
     }
 }
 
