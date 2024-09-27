@@ -14,10 +14,6 @@ val tauriProperties = Properties().apply {
     }
 }
 
-val keyPropertiesFile = rootProject.file("key.properties")
-val keyProperties = Properties()
-keyProperties.load(FileInputStream(keyPropertiesFile))
-
 android {
     compileSdk = 34
     namespace = "org.noctisynth.pretty_derby"
@@ -29,6 +25,20 @@ android {
         versionCode = tauriProperties.getProperty("tauri.android.versionCode", "1").toInt()
         versionName = tauriProperties.getProperty("tauri.android.versionName", "1.0")
     }
+    signingConfigs {
+    create("release") {
+            val keystorePropertiesFile = rootProject.file("key.properties")
+            val keystoreProperties = Properties()
+
+            keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+
+            keyAlias = keystoreProperties["keyAlias"] as String
+            keyPassword = keystoreProperties["password"] as String
+            storeFile = file(keystoreProperties["storeFile"] as String)
+            storePassword = keystoreProperties["password"] as String
+        }
+    }
+
     buildTypes {
         getByName("debug") {
             manifestPlaceholders["usesCleartextTraffic"] = "true"
