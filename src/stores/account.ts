@@ -7,33 +7,30 @@ export const useAccountStore = defineStore(
   () => {
     const account = ref<Account | null>(null);
     const disclaimed = ref(false);
-    const setAccount = (newAccount: Account) => {
-      account.value = newAccount;
-    };
     const isLoggedIn = () => {
       return account.value !== null;
     };
+    const setAccount = (username: string, password: string) => {
+      account.value = { username, password };
+    };
     const login = async (username: string, password: string) => {
-      const result: { status: boolean; msg: string; account: Account } =
-        await invoke("login", {
-          username,
-          password,
-        });
+      const result: { status: boolean; msg: string } = await invoke("login", {
+        username,
+        password,
+      });
       if (result.status) {
-        setAccount(result.account);
+        setAccount(username, password);
         return { status: true, msg: "Login successfully" };
       } else {
         return { status: false, msg: result.msg };
       }
     };
     const acquire = async () => {
-      const result: { status: boolean; msg: string; account: Account } =
-        await invoke("login", {
-          username: account.value?.username,
-          password: account.value?.password,
-        });
+      const result: { status: boolean; msg: string } = await invoke("login", {
+        username: account.value?.username,
+        password: account.value?.password,
+      });
       if (result.status) {
-        setAccount(result.account);
         return { status: true, msg: "Login successfully" };
       } else {
         return { status: false, msg: result.msg };
@@ -42,7 +39,6 @@ export const useAccountStore = defineStore(
     return {
       account,
       disclaimed,
-      setAccount,
       isLoggedIn,
       login,
       acquire,

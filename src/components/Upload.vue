@@ -4,12 +4,13 @@ import { ref } from 'vue';
 import { invoke } from '@tauri-apps/api/core';
 import { useAccountStore } from '../stores/account';
 import Button from 'primevue/button';
+import { useRouter } from 'vue-router';
 
 // const toast = useToast();
 const accountStore = useAccountStore();
 const msg = ref<string | null>(null);
 const status = ref<boolean | null>(null);
-const account = accountStore.account;
+const router = useRouter();
 
 // Generate random number between min and max
 const random = (min: any, max: any) => Math.floor(Math.random() * (max - min + 1) + min)
@@ -23,7 +24,6 @@ async function upload() {
     }
     datetime.value.setSeconds(random(0, 59))
     const result: { status: boolean; msg: string } = await invoke("upload", {
-        account: accountStore.account,
         mileage: mileage.value,
         time: datetime.value.toLocaleString(),
     })
@@ -32,7 +32,7 @@ async function upload() {
     msg.value = result.msg;
 }
 
-const mileage = ref<number>(account ? Math.min(account.daily - account.day, account.weekly - account.week, account.end) || 1 : 1);
+const mileage = ref<number>(2);
 const datetime = ref<Date | null>(null);
 </script>
 
@@ -63,7 +63,7 @@ const datetime = ref<Date | null>(null);
                         }}
                     </Message>
                     <div class="flex justify-between items-center">
-                        <Button label="Logout" @click="accountStore.account = null; $router.push('/')"
+                        <Button label="Logout" @click="accountStore.account = null; router.push('/')"
                             severity="secondary"></Button>
                         <Button type="submit" label="Upload" @click="upload"></Button>
                     </div>
