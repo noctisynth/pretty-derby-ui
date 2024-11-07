@@ -10,25 +10,25 @@
     "tauri": "tauri"
   },
   "dependencies": {
-    "@primevue/themes": "^4.0.7",
+    "@primevue/themes": "^4.1.0",
     "@tauri-apps/api": "2.0.0-rc.5",
     "@tauri-apps/plugin-process": "2.0.0-rc.1",
     "@tauri-apps/plugin-shell": "2.0.0-rc.1",
     "marked": "^12.0.2",
-    "pinia": "^2.2.2",
+    "pinia": "^2.2.4",
     "pinia-plugin-persistedstate": "^3.2.3",
     "primeicons": "^7.0.0",
     "primevue": "4.0.7",
     "unocss": "^0.59.4",
-    "vue": "^3.5.9",
+    "vue": "^3.5.12",
     "vue-router": "^4.4.5"
   },
   "devDependencies": {
     "@tauri-apps/cli": "2.0.0-rc.16",
     "@vitejs/plugin-vue": "^5.1.4",
     "internal-ip": "^7.0.0",
-    "rollup": "^4.22.4",
-    "typescript": "^5.6.2",
+    "rollup": "^4.24.0",
+    "typescript": "^5.6.3",
     "unplugin-vue-components": "^0.26.0",
     "vite": "^5.4.8",
     "vue-tsc": "^2.1.6"
