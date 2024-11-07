@@ -6,6 +6,19 @@ import { useAccountStore } from '../stores/account';
 import Button from 'primevue/button';
 import { useRouter } from 'vue-router';
 
+function formatDate(date: Date) {
+    const pad = (number: number) => (number < 10 ? '0' + number : number);
+
+    return (
+        date.getFullYear() + '/' +
+        pad(date.getMonth() + 1) + '/' + // getMonth() 返回的月份是从0开始的，所以需要+1
+        pad(date.getDate()) + ' ' +
+        pad(date.getHours()) + ':' +
+        pad(date.getMinutes()) + ':' +
+        pad(date.getSeconds())
+    );
+}
+
 // const toast = useToast();
 const accountStore = useAccountStore();
 const msg = ref<string | null>(null);
@@ -25,7 +38,7 @@ async function upload() {
     datetime.value.setSeconds(random(0, 59))
     const result: { status: boolean; msg: string } = await invoke("upload", {
         mileage: mileage.value,
-        time: datetime.value.toLocaleString(),
+        time: formatDate(datetime.value),
     })
     console.log(result);
     status.value = result.status;

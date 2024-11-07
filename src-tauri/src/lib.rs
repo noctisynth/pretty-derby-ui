@@ -26,6 +26,7 @@ async fn upload(
     mileage: f64,
     time: String,
 ) -> Result<Value, ()> {
+    println!("Uploading {} mileage at {}...", mileage, time);
     if let Err(e) = account
         .lock()
         .await
@@ -35,12 +36,14 @@ async fn upload(
             match NaiveDateTime::parse_from_str(&time, "%Y/%m/%d %H:%M:%S") {
                 Ok(t) => t,
                 Err(e) => {
+                    println!("Error when parsing: {}", e.to_string());
                     return Ok(json!({"status": false, "msg": e.to_string()}));
                 }
             },
         )
         .await
     {
+        println!("An error occurred: {}", e.to_string());
         return Ok(json!({"status": false, "msg": e.to_string()}));
     };
     Ok(json!({"status": true, "msg": "Running data uploaded successfully!"}))
