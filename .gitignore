@@ -25,3 +25,6 @@ dist-ssr
 
 # Unplugin Auto Generated Files
 components.d.ts
+
+# Trae
+.marscode/

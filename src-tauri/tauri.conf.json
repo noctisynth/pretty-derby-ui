@@ -1,19 +1,22 @@
 {
+  "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
   "productName": "Pretty Derby",
   "version": "0.2.0",
   "identifier": "org.noctisynth.pretty-derby",
   "build": {
-    "beforeDevCommand": "pnpm dev",
+    "frontendDist": "../dist",
     "devUrl": "http://localhost:1420",
-    "beforeBuildCommand": "pnpm build",
-    "frontendDist": "../dist"
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
   },
   "app": {
     "windows": [
       {
         "title": "Pretty Derby",
         "width": 800,
-        "height": 600
+        "height": 600,
+        "resizable": true,
+        "fullscreen": false
       }
     ],
     "security": {
